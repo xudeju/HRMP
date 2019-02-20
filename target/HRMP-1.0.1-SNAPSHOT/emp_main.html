@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html ng-app="empApp">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<link rel="stylesheet" href="css/style.css">
+	</head>
+	<body>
+		<div ng-controller="navaCtrl">
+			<h1>欢迎{{username}}</h1>
+			<button><a href="#/">返回首页</a></button>
+			<button><a href="index.html">返回登录页面</a></button>
+			<button><a href="#/save">添加新员工</a></button>
+		</div>
+		<div ng-view="" style="overflow: scroll;height: 550px;width: 100%;margin-top: 15px">
+		</div>
+		<hr/>
+        <div ng-controller="searchCtrl">
+			<h3>查询员工</h3>
+            <select name="" ng-model="queryType">
+                <option value="empno" selected="selected">员工编号</option>
+                <option value="ename">员工姓名</option>
+            </select>
+            <input type="text" ng-model="queryCon">
+            <button id="queryBtn" ng-click="queryBtn()">查询</button>
+        </div>
+		<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+		<script src="https://cdn.bootcss.com/angular.js/1.7.5/angular.js"></script>
+		<script src="https://cdn.bootcss.com/angular.js/1.7.5/angular-route.min.js"></script>
+        <script src="js/app.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/controller.js" type="text/javascript" charset="utf-8"></script>
+	</body>
+</html>

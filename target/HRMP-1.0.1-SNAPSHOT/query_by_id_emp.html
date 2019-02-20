@@ -1,0 +1,25 @@
+<div id="info">
+    <h3>Find By Id Page</h3>
+    <ul>
+        <li ng-repeat="emp in emps">
+            <p>empno:{{emp.empno}}</p>
+            <p>ename:{{emp.ename}}</p>
+            <p>sal:{{emp.sal}}</p>
+            <button ng-click="showDetail($event)">显示/关闭详情</button>
+            <button ng-click="deleteBtn(emp.empno)">删除</button>
+            <button ng-click="updateBtn(emp)">更新</button>
+            <div ng-show="flag">
+                <h3>详细信息</h3>
+                <p>empno:{{emp.empno}}</p>
+                <p>ename:{{emp.ename}}</p>
+                <p>sal:{{emp.sal}}</p>
+                <p>job:{{emp.job}}</p>
+                <p>mgr:{{emp.mgr}}</p>
+                <p>hiredate:{{emp.hiredate}}</p>
+                <p>comm:{{emp.comm}}</p>
+                <p>deptno:{{emp.deptno}}</p>
+            </div>
+            <hr />
+        </li>
+    </ul>
+</div>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Registry Page</title>
+</head>
+<body>
+<h1>请输入用户信息</h1>
+<table>
+	<tr>
+		<td>请输入用户名</td>
+		<td><input type="text" name="username" id="username"><span id="userExsitMsg"></span></td>
+	</tr>
+	<tr>
+		<td>请输入密码</td>
+		<td><input type="password" name="userpassword1"></td>
+	</tr>
+	<tr>
+		<td>请再次输入密码</td>
+		<td><input type="password" name="userpassword2"></td>
+	</tr>
+	<tr>
+		<td rowspan="2"><button id="btn_conform">提交</button></td>
+	</tr>
+</table>
+<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+		//判断用户名是否存在
+		$("#username").focus().blur(function(ev){
+			$.ajax({
+				type:"get",
+				url:"http://localhost:8080/HRM/UserExsitServlet",
+				async:true,
+				data:{
+					username:$(ev.target).val()
+				},
+				success:function(res){
+					var jsonResult = JSON.parse(res);
+					console.log(jsonResult);
+					if(jsonResult.code == 200){
+						$("#userExsitMsg").html("&nbsp;用户名重复").css({"color":"red"});
+					}else{
+						$("#userExsitMsg").html("&nbsp;用户名可用").css({"color":"green"});
+					}
+				}
+			});
+		});
+	});
+	
+	//注册按钮事件
+	$("#btn_conform").click(function(){
+		$.ajax({
+			type:"post",
+			url:"http://localhost:8080/HRM/UserRegistServlet",
+			async:true,
+			data:{
+				"username":$("input[name='username']").val(),
+				"userpassword1":$("input[name='userpassword1']").val(),
+				"userpassword2":$("input[name='userpassword2']").val()
+			},success:function(res){
+				var jsonResult = JSON.parse(res);
+				if(jsonResult.code == 200){
+					window.location.href="http://localhost:8080/HRM/index.html";
+
+				}else{
+					sessionStorage.errCode = jsonResult.code;
+					sessionStorage.errMsg = jsonResult.msg;
+					window.location.href="http://localhost:8080/HRM/error.html";
+				}
+			}
+		});
+	});
+</script>
+</body>
+</html>
